@@ -35,12 +35,19 @@ android {
 
     defaultConfig {
         minSdk = 21
+        ndkVersion "26.1.10909125"
+    }
+
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging = false // ✅ required for 16 KB support
+        }
     }
 
     dependencies {
         testImplementation("junit:junit:4.13.2")
         testImplementation("org.mockito:mockito-core:5.19.0")
-        implementation "com.twilio:conversations-android-with-symbols:6.2.0"
+        implementation "com.twilio:conversations-android-with-symbols:6.3.0"
         implementation "com.twilio.sdk:twilio:11.0.0-rc.4"
     }
 
