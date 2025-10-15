@@ -5,10 +5,11 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://repo.twilio.com/releases" }
     }
 
     dependencies {
-        classpath("com.android.tools.build:gradle:8.11.1")
+        classpath("com.android.tools.build:gradle:8.1.1")
     }
 }
 
@@ -16,16 +17,14 @@ rootProject.allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://repo.twilio.com/releases" }
     }
 }
 
 apply plugin: "com.android.library"
 
 android {
-    if (project.android.hasProperty("namespace")) {
-        namespace = "com.at.twilio_conversation_sdk"
-    }
-
+    namespace = "com.at.twilio_conversation_sdk"
     compileSdk = 36
 
     compileOptions {
@@ -40,24 +39,24 @@ android {
 
     packagingOptions {
         jniLibs {
-            useLegacyPackaging = false // ✅ required for 16 KB support
+            useLegacyPackaging = false
         }
-    }
-
-    dependencies {
-        testImplementation("junit:junit:4.13.2")
-        testImplementation("org.mockito:mockito-core:5.19.0")
-        implementation "com.twilio:conversations-android-with-symbols:6.2.0"
-        implementation "com.twilio.sdk:twilio:11.0.0-rc.4"
     }
 
     testOptions {
         unitTests.all {
             testLogging {
-               events "passed", "skipped", "failed", "standardOut", "standardError"
-               outputs.upToDateWhen {false}
-               showStandardStreams = true
+                events "passed", "skipped", "failed", "standardOut", "standardError"
+                outputs.upToDateWhen { false }
+                showStandardStreams = true
             }
         }
     }
+}
+
+dependencies {
+    testImplementation("junit:junit:4.13.2")
+    testImplementation("org.mockito:mockito-core:5.19.0")
+    implementation "com.twilio:conversations-android-with-symbols:6.2.0"
+    implementation "com.twilio.sdk:twilio:11.0.0-rc.4"
 }
